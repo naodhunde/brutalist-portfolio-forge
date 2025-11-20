@@ -416,15 +416,12 @@ const Index = () => {
               transition={{ duration: 0.4 }}
               className="py-16"
             >
-              <div ref={aboutSection.ref} className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16 md:divide-x md:divide-border md:items-stretch">
+              <div className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16 md:divide-x md:divide-border md:items-stretch">
                 {/* Left Column - Profile & Stats */}
                 <motion.div 
                   className="space-y-12"
                   initial={{ opacity: 0, x: -30 }}
-                  animate={{ 
-                    opacity: aboutSection.isIntersecting ? 1 : 0,
-                    x: aboutSection.isIntersecting ? 0 : -30
-                  }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
                 >
                   <h2 className="text-5xl font-bold">About</h2>
@@ -494,13 +491,9 @@ const Index = () => {
 
                 {/* Right Column - Services Grid */}
                 <motion.div 
-                  ref={servicesSection.ref}
                   className="md:pl-16"
                   initial={{ opacity: 0, x: 30 }}
-                  animate={{ 
-                    opacity: servicesSection.isIntersecting ? 1 : 0,
-                    x: servicesSection.isIntersecting ? 0 : 30
-                  }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
                 >
                   <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8 font-mono">// SERVICES</h3>
@@ -509,10 +502,7 @@ const Index = () => {
                       <motion.div
                         key={service.title}
                         initial={{ opacity: 0, y: 20 }}
-                        animate={{ 
-                          opacity: servicesSection.isIntersecting ? 1 : 0,
-                          y: servicesSection.isIntersecting ? 0 : 20
-                        }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 * idx }}
                         className="border border-zinc-800 p-6 hover:bg-zinc-900 hover:border-accent transition-all group cursor-pointer"
                       >
@@ -529,14 +519,10 @@ const Index = () => {
 
               {/* Career Timeline */}
               <motion.div 
-                ref={timelineSection.ref}
                 className="py-16"
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ 
-                  opacity: timelineSection.isIntersecting ? 1 : 0,
-                  y: timelineSection.isIntersecting ? 0 : 30
-                }}
-                transition={{ duration: 0.6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8">Career Timeline</h3>
                 <Timeline items={timelineData} />
@@ -554,13 +540,10 @@ const Index = () => {
               className="py-16"
             >
               <motion.h2 
-                ref={allWorksSection.ref}
                 className="text-5xl font-bold mb-12"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: allWorksSection.isIntersecting ? 1 : 0,
-                  y: allWorksSection.isIntersecting ? 0 : 20
-                }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
               >
                 All Works
               </motion.h2>
@@ -569,10 +552,7 @@ const Index = () => {
                   <motion.div
                     key={project.id}
                     initial={{ opacity: 0, y: 30 }}
-                    animate={{ 
-                      opacity: allWorksSection.isIntersecting ? 1 : 0,
-                      y: allWorksSection.isIntersecting ? 0 : 30
-                    }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.05 * idx }}
                   >
                     <Link to={`/work/${project.slug}`} className="group block">

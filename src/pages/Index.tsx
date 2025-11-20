@@ -154,7 +154,10 @@ const Index = () => {
             {(["home", "about", "work"] as const).map((view) => (
               <button
                 key={view}
-                onClick={() => setCurrentView(view)}
+                onClick={() => {
+                  console.log(`Switching to view: ${view}`);
+                  setCurrentView(view);
+                }}
                 className={`uppercase tracking-wider transition-colors ${
                   currentView === view ? "text-accent" : "text-muted-foreground hover:text-foreground"
                 }`}

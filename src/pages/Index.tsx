@@ -3,12 +3,74 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Code2, Sparkles, Zap, TrendingUp, Linkedin, Send, Instagram } from "lucide-react";
 import { projects } from "@/data/projects";
+import { Timeline, TimelineItem } from "@/components/Timeline";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
   { icon: Sparkles, title: "Mobile Development", description: "React Native, Flutter" },
   { icon: Zap, title: "UI/UX Design", description: "Responsive Design Systems" },
   { icon: TrendingUp, title: "Security", description: "Cybersecurity & Authentication" },
+];
+
+const timelineData: TimelineItem[] = [
+  {
+    id: "wsu",
+    type: "education",
+    title: "Bachelor of Information Technology",
+    organization: "Western Sydney University",
+    period: "2023 - Present",
+    description: "Majoring in Cybersecurity with a GPA of 4.0, focusing on information security, network defense, and secure application development.",
+    highlights: [
+      "Achieved perfect 4.0 GPA demonstrating exceptional academic performance",
+      "Specializing in cybersecurity principles and secure coding practices",
+      "Developing expertise in threat analysis and security architecture"
+    ],
+    technologies: ["Cybersecurity", "Network Security", "Secure Coding", "Threat Analysis"]
+  },
+  {
+    id: "stomble",
+    type: "work",
+    title: "Mobile Application Developer Intern",
+    organization: "Stomble",
+    period: "Jun 2023 – Sep 2023",
+    description: "Developed and maintained cross-platform mobile applications, collaborating with the development team to deliver high-performance features.",
+    highlights: [
+      "Built responsive mobile applications for Android and iOS using React Native",
+      "Optimized application performance, security, and user experience",
+      "Achieved 20% increase in user engagement and retention through feature enhancements"
+    ],
+    technologies: ["React Native", "JavaScript", "Android", "iOS", "Mobile Development"]
+  },
+  {
+    id: "aml",
+    type: "work",
+    title: "Software Engineer Intern",
+    organization: "AML Cloud",
+    period: "May 2023 – Jun 2023",
+    description: "Spearheaded development of responsive UI components and architected scalable database solutions with real-time capabilities.",
+    highlights: [
+      "Developed responsive UI components in Flutter with modern design patterns",
+      "Architected scalable Firestore database with real-time data synchronization",
+      "Implemented secure authentication system using Firebase Authentication",
+      "Optimized state management using Flutter Riverpod for improved performance"
+    ],
+    technologies: ["Flutter", "Firebase", "Firestore", "Riverpod", "Dart", "Authentication"]
+  },
+  {
+    id: "usyd",
+    type: "education",
+    title: "Certification in Full Stack Development",
+    organization: "University of Sydney",
+    period: "2022 - 2023",
+    description: "Intensive bootcamp program covering modern web development technologies with hands-on project experience.",
+    highlights: [
+      "Completed comprehensive curriculum in full stack web development",
+      "Mastered MERN stack (MongoDB, Express.js, React, Node.js) through intensive coding bootcamps",
+      "Built and deployed multiple full-stack applications from scratch",
+      "Developed expertise in modern JavaScript, API design, and database management"
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "Express.js", "JavaScript", "REST APIs"]
+  }
 ];
 
 type View = "home" | "about" | "work";
@@ -239,88 +301,10 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Experience Section */}
+              {/* Career Timeline */}
               <div className="py-16">
-                <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8">Professional Experience</h3>
-                <div className="space-y-8">
-                  {/* Stomble */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="brutalist-border p-8 hover:border-accent transition-colors group"
-                  >
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                      <div>
-                        <h4 className="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">
-                          Mobile Application Developer Intern
-                        </h4>
-                        <p className="text-xl text-foreground">Stomble</p>
-                      </div>
-                      <span className="font-mono text-muted-foreground mt-2 md:mt-0">Jun 2023 – Sep 2023</span>
-                    </div>
-                    <div className="space-y-4 text-muted-foreground leading-relaxed">
-                      <p>
-                        Developed and maintained mobile applications for both Android and iOS platforms using React Native. 
-                        Worked closely with the development team to design, develop, and test new features, ensuring high 
-                        performance and responsiveness across devices.
-                      </p>
-                      <p>
-                        Contributed to the optimization of application performance, security, and user experience, resulting 
-                        in a <span className="text-accent font-semibold">20% increase in user engagement and retention</span>.
-                      </p>
-                      <div className="pt-4">
-                        <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3">Technologies Used</p>
-                        <div className="flex flex-wrap gap-2">
-                          {["React Native", "JavaScript", "Android", "iOS", "Mobile Development"].map((tech) => (
-                            <span key={tech} className="brutalist-border px-3 py-1 text-sm text-foreground hover:border-accent transition-colors">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* AML Cloud */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="brutalist-border p-8 hover:border-accent transition-colors group"
-                  >
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                      <div>
-                        <h4 className="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">
-                          Software Engineer Intern
-                        </h4>
-                        <p className="text-xl text-foreground">AML Cloud</p>
-                      </div>
-                      <span className="font-mono text-muted-foreground mt-2 md:mt-0">May 2023 – Jun 2023</span>
-                    </div>
-                    <div className="space-y-4 text-muted-foreground leading-relaxed">
-                      <p>
-                        Spearheaded the development of responsive UI components in Flutter, architecting a scalable 
-                        Firestore database with real-time updates. Integrated Firebase Authentication for secure logins 
-                        and optimized state management with Flutter Riverpod.
-                      </p>
-                      <p>
-                        Streamlined data retrieval with custom Firestore queries and extended app functionality with 
-                        Flutter plugins, delivering a robust and performant mobile application.
-                      </p>
-                      <div className="pt-4">
-                        <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3">Technologies Used</p>
-                        <div className="flex flex-wrap gap-2">
-                          {["Flutter", "Firebase", "Firestore", "Riverpod", "Dart", "Authentication"].map((tech) => (
-                            <span key={tech} className="brutalist-border px-3 py-1 text-sm text-foreground hover:border-accent transition-colors">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+                <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8">Career Timeline</h3>
+                <Timeline items={timelineData} />
               </div>
             </motion.div>
           )}

@@ -288,7 +288,7 @@ const Index = () => {
               transition={{ duration: 0.4 }}
               className="py-16"
             >
-              <div className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16 md:divide-x md:divide-border">
+              <div className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16 md:divide-x md:divide-border md:items-stretch">
                 {/* Left Column - Profile & Stats */}
                 <div className="space-y-12">
                   <h2 className="text-5xl font-bold">About</h2>
@@ -299,12 +299,18 @@ const Index = () => {
                       <span className="font-mono text-muted-foreground uppercase tracking-wider">// CONTACT</span>
                       <div className="space-y-2">
                         <div>
-                          <a href="mailto:naodhunde@gmail.com" className="text-foreground hover:text-accent transition-colors">
+                          <a 
+                            href="mailto:naodhunde@gmail.com" 
+                            className="text-foreground hover:text-gray-300 hover:underline transition-all cursor-pointer"
+                          >
                             naodhunde@gmail.com
                           </a>
                         </div>
                         <div>
-                          <a href="tel:0414252751" className="text-foreground hover:text-accent transition-colors">
+                          <a 
+                            href="tel:0414252751" 
+                            className="text-foreground hover:text-gray-300 hover:underline transition-all cursor-pointer"
+                          >
                             0414 252 751
                           </a>
                         </div>
@@ -338,7 +344,7 @@ const Index = () => {
                     href="https://github.com/naodhunde" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="block w-full bg-background border-2 border-border p-6 font-mono text-sm hover:border-accent transition-all group"
+                    className="block w-full bg-background border-2 border-border p-6 font-mono text-sm hover:border-accent hover:bg-zinc-900 transition-all group cursor-pointer"
                   >
                     <span className="text-accent">$</span>
                     <span className="text-foreground ml-2 group-hover:text-accent transition-colors">
@@ -360,7 +366,7 @@ const Index = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 * idx }}
-                        className="border border-zinc-800 p-6 hover:bg-zinc-900 hover:border-accent transition-all group"
+                        className="border border-zinc-800 p-6 hover:bg-zinc-900 hover:border-accent transition-all group cursor-pointer"
                       >
                         <service.icon className="w-8 h-8 mb-4 text-muted-foreground group-hover:text-accent transition-colors" />
                         <h4 className="font-bold mb-2 text-foreground group-hover:text-accent transition-colors">

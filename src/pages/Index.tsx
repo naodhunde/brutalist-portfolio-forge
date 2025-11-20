@@ -182,14 +182,33 @@ const Index = () => {
             >
               {/* Hero Section */}
               <div className="min-h-[60vh] flex flex-col justify-center brutalist-border border-b pb-16">
-                <motion.h1
-                  className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-none lowercase tracking-tight"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  hellooooo
-                </motion.h1>
+              <motion.h1
+                className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-none lowercase tracking-tight"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                {("hellooooo".split("").map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, y: 50, rotate: -10 }}
+                    animate={{ opacity: 1, y: 0, rotate: 0 }}
+                    transition={{
+                      delay: 0.1 + index * 0.1,
+                      duration: 0.5,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    className="inline-block"
+                    whileHover={{ 
+                      scale: 1.2, 
+                      color: "hsl(var(--accent))",
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                )))}
+              </motion.h1>
                 <motion.p
                   className="text-xl md:text-2xl text-muted-foreground mt-8 max-w-2xl"
                   initial={{ opacity: 0 }}

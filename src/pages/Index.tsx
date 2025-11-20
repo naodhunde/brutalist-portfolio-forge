@@ -284,8 +284,12 @@ const Index = () => {
                   <h2 className="text-5xl font-bold mb-8">About</h2>
                   <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                     <p className="font-semibold text-foreground">Naod Hunde</p>
-                    <p>Email: naodhunde@gmail.com</p>
-                    <p>Phone: 0414252751</p>
+                    <p>
+                      Email: <a href="mailto:naodhunde@gmail.com" className="text-accent hover:underline transition-colors">naodhunde@gmail.com</a>
+                    </p>
+                    <p>
+                      Phone: <a href="tel:0414252751" className="text-accent hover:underline transition-colors">0414252751</a>
+                    </p>
                     <p className="pt-4">
                       Currently pursuing a Bachelor of Information Technology majoring in Cybersecurity at Western Sydney University (GPA: 4.0), 
                       with a Certification in Full Stack Development from the University of Sydney.

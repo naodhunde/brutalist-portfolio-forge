@@ -238,6 +238,90 @@ const Index = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Experience Section */}
+              <div className="py-16">
+                <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8">Professional Experience</h3>
+                <div className="space-y-8">
+                  {/* Stomble */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="brutalist-border p-8 hover:border-accent transition-colors group"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+                      <div>
+                        <h4 className="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">
+                          Mobile Application Developer Intern
+                        </h4>
+                        <p className="text-xl text-foreground">Stomble</p>
+                      </div>
+                      <span className="font-mono text-muted-foreground mt-2 md:mt-0">Jun 2023 – Sep 2023</span>
+                    </div>
+                    <div className="space-y-4 text-muted-foreground leading-relaxed">
+                      <p>
+                        Developed and maintained mobile applications for both Android and iOS platforms using React Native. 
+                        Worked closely with the development team to design, develop, and test new features, ensuring high 
+                        performance and responsiveness across devices.
+                      </p>
+                      <p>
+                        Contributed to the optimization of application performance, security, and user experience, resulting 
+                        in a <span className="text-accent font-semibold">20% increase in user engagement and retention</span>.
+                      </p>
+                      <div className="pt-4">
+                        <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3">Technologies Used</p>
+                        <div className="flex flex-wrap gap-2">
+                          {["React Native", "JavaScript", "Android", "iOS", "Mobile Development"].map((tech) => (
+                            <span key={tech} className="brutalist-border px-3 py-1 text-sm text-foreground hover:border-accent transition-colors">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* AML Cloud */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="brutalist-border p-8 hover:border-accent transition-colors group"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+                      <div>
+                        <h4 className="text-2xl font-bold mb-2 group-hover:text-accent transition-colors">
+                          Software Engineer Intern
+                        </h4>
+                        <p className="text-xl text-foreground">AML Cloud</p>
+                      </div>
+                      <span className="font-mono text-muted-foreground mt-2 md:mt-0">May 2023 – Jun 2023</span>
+                    </div>
+                    <div className="space-y-4 text-muted-foreground leading-relaxed">
+                      <p>
+                        Spearheaded the development of responsive UI components in Flutter, architecting a scalable 
+                        Firestore database with real-time updates. Integrated Firebase Authentication for secure logins 
+                        and optimized state management with Flutter Riverpod.
+                      </p>
+                      <p>
+                        Streamlined data retrieval with custom Firestore queries and extended app functionality with 
+                        Flutter plugins, delivering a robust and performant mobile application.
+                      </p>
+                      <div className="pt-4">
+                        <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3">Technologies Used</p>
+                        <div className="flex flex-wrap gap-2">
+                          {["Flutter", "Firebase", "Firestore", "Riverpod", "Dart", "Authentication"].map((tech) => (
+                            <span key={tech} className="brutalist-border px-3 py-1 text-sm text-foreground hover:border-accent transition-colors">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
             </motion.div>
           )}
 

@@ -82,6 +82,7 @@ const Index = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [isExploding, setIsExploding] = useState(false);
 
   // Live clock
   useEffect(() => {
@@ -109,6 +110,16 @@ const Index = () => {
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  };
+
+  const handleGetInTouchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsExploding(true);
+    
+    setTimeout(() => {
+      setIsExploding(false);
+      window.location.href = "mailto:naodhunde@gmail.com";
+    }, 800);
   };
 
   return (
@@ -442,12 +453,40 @@ const Index = () => {
             <h2 className="text-6xl md:text-8xl font-bold">
               Let's create a website.
             </h2>
-            <a 
-              href="mailto:naodhunde@gmail.com"
-              className="bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:bg-foreground/90 transition-all hover:scale-105"
-            >
-              Get in Touch
-            </a>
+            <div className="relative">
+              <button 
+                onClick={handleGetInTouchClick}
+                className="bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:bg-foreground/90 transition-all hover:scale-105 relative overflow-hidden"
+              >
+                <span className={isExploding ? "opacity-0" : "opacity-100 transition-opacity"}>
+                  Get in Touch
+                </span>
+                {isExploding && (
+                  <>
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute top-1/2 left-1/2 w-3 h-3 bg-accent rounded-full"
+                        initial={{ scale: 0, x: 0, y: 0 }}
+                        animate={{
+                          scale: [0, 1, 0],
+                          x: Math.cos((i * Math.PI * 2) / 12) * 100,
+                          y: Math.sin((i * Math.PI * 2) / 12) * 100,
+                          opacity: [1, 1, 0]
+                        }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                      />
+                    ))}
+                    <motion.div
+                      className="absolute inset-0 bg-accent rounded-full"
+                      initial={{ scale: 0, opacity: 0.5 }}
+                      animate={{ scale: 3, opacity: 0 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  </>
+                )}
+              </button>
+            </div>
           </motion.div>
         </div>
       </footer>

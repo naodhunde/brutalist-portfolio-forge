@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Code2, Sparkles, Zap, TrendingUp, Linkedin, Send, Instagram } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Timeline, TimelineItem } from "@/components/Timeline";
-import { GitHubCalendar } from 'react-github-calendar';
 import { Marquee } from "@/components/Marquee";
 
 const services = [
@@ -308,13 +307,17 @@ const Index = () => {
                     <div className="pt-8">
                       <h3 className="text-2xl font-bold mb-4 text-foreground">GitHub Activity</h3>
                       <div className="bg-card p-6 rounded-lg border-2 border-border">
-                        <GitHubCalendar 
-                          username="naodhunde" 
-                          colorScheme="dark"
-                          blockSize={12}
-                          blockMargin={4}
-                          fontSize={14}
-                        />
+                        <a 
+                          href="https://github.com/naodhunde" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-accent hover:underline text-lg"
+                        >
+                          View my GitHub profile →
+                        </a>
+                        <p className="text-muted-foreground mt-2">
+                          Check out my open source contributions and projects
+                        </p>
                       </div>
                     </div>
                     <p>

@@ -7,6 +7,7 @@ import { Timeline, TimelineItem } from "@/components/Timeline";
 import { Marquee } from "@/components/Marquee";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useScrollParallax } from "@/hooks/useScrollParallax";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
@@ -148,6 +149,9 @@ const Index = () => {
 
   return (
     <>
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+
       {/* Loading Screen */}
       <AnimatePresence>
         {isLoading && (

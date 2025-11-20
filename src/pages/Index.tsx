@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Code2, Sparkles, Zap, TrendingUp, Linkedin, Send, Instagram } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Timeline, TimelineItem } from "@/components/Timeline";
+import { GitHubCalendar } from 'react-github-calendar';
+import { Marquee } from "@/components/Marquee";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
@@ -150,7 +152,7 @@ const Index = () => {
             <div className="text-muted-foreground">Located in Sydney</div>
           </div>
 
-          <nav className="flex gap-6 text-sm">
+          <nav className="flex items-center gap-6 text-sm">
             {(["home", "about", "work"] as const).map((view) => (
               <button
                 key={view}
@@ -165,6 +167,14 @@ const Index = () => {
                 {view}
               </button>
             ))}
+            <a 
+              href="/resume.pdf" 
+              className="bg-background text-foreground px-6 py-2 rounded-md font-semibold hover:bg-background/90 transition-colors border-2 border-foreground uppercase tracking-wider"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Resume
+            </a>
           </nav>
         </div>
       </header>
@@ -294,6 +304,19 @@ const Index = () => {
                       Currently pursuing a Bachelor of Information Technology majoring in Cybersecurity at Western Sydney University (GPA: 4.0), 
                       with a Certification in Full Stack Development from the University of Sydney.
                     </p>
+                    
+                    <div className="pt-8">
+                      <h3 className="text-2xl font-bold mb-4 text-foreground">GitHub Activity</h3>
+                      <div className="bg-card p-6 rounded-lg border-2 border-border">
+                        <GitHubCalendar 
+                          username="naodhunde" 
+                          colorScheme="dark"
+                          blockSize={12}
+                          blockMargin={4}
+                          fontSize={14}
+                        />
+                      </div>
+                    </div>
                     <p>
                       I specialize in building full-stack applications using the MERN stack and mobile development with React Native and Flutter. 
                       My experience includes developing high-performance mobile applications, architecting scalable databases, and implementing 
@@ -377,30 +400,26 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="brutalist-border border-t py-16">
+      <Marquee items={["MERN STACK", "REACT NATIVE", "WEBGL", "SCALABLE"]} />
+      
+      <footer className="brutalist-border border-t py-24">
         <div className="container mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="flex flex-col items-center justify-center text-center space-y-8"
           >
-            <h2 className="text-6xl md:text-8xl font-bold mb-4 hover:text-accent transition-colors cursor-pointer">
-              Let's create a website
+            <h2 className="text-6xl md:text-8xl font-bold">
+              Let's create a website.
             </h2>
+            <a 
+              href="mailto:naodhunde@gmail.com"
+              className="bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:bg-foreground/90 transition-all hover:scale-105"
+            >
+              Get in Touch
+            </a>
           </motion.div>
-          
-          <div className="flex justify-center gap-8 text-sm">
-            <a href="#" className="hover:text-accent transition-colors flex items-center gap-2">
-              <Linkedin className="w-4 h-4" /> LinkedIn
-            </a>
-            <a href="#" className="hover:text-accent transition-colors flex items-center gap-2">
-              <Send className="w-4 h-4" /> Telegram
-            </a>
-            <a href="#" className="hover:text-accent transition-colors flex items-center gap-2">
-              <Instagram className="w-4 h-4" /> Instagram
-            </a>
-          </div>
         </div>
       </footer>
     </div>

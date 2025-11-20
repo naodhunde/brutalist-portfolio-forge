@@ -6,6 +6,7 @@ import { projects } from "@/data/projects";
 import { Timeline, TimelineItem } from "@/components/Timeline";
 import { Marquee } from "@/components/Marquee";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useScrollParallax } from "@/hooks/useScrollParallax";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
@@ -94,6 +95,10 @@ const Index = () => {
   const timelineSection = useIntersectionObserver({ threshold: 0.1 });
   const allWorksSection = useIntersectionObserver({ threshold: 0.1 });
   const footerSection = useIntersectionObserver({ threshold: 0.2 });
+
+  // Parallax effects
+  const parallaxOffset = useScrollParallax(0.5);
+  const parallaxOffsetSlow = useScrollParallax(0.3);
 
   // Loading screen
   useEffect(() => {
@@ -273,7 +278,26 @@ const Index = () => {
               transition={{ duration: 0.4 }}
             >
               {/* Hero Section */}
-              <div ref={heroSection.ref} className="min-h-[60vh] flex flex-col justify-center brutalist-border border-b pb-16">
+              <div ref={heroSection.ref} className="min-h-[60vh] flex flex-col justify-center brutalist-border border-b pb-16 relative overflow-hidden">
+                {/* Parallax Background Elements */}
+                <motion.div
+                  className="absolute top-10 left-10 w-32 h-32 border-4 border-accent/20 rounded-full"
+                  style={{ y: parallaxOffset }}
+                />
+                <motion.div
+                  className="absolute top-40 right-20 w-24 h-24 border-4 border-accent/10"
+                  style={{ y: parallaxOffsetSlow }}
+                />
+                <motion.div
+                  className="absolute bottom-20 left-1/4 w-16 h-16 bg-accent/5 rotate-45"
+                  style={{ y: parallaxOffset * 0.7 }}
+                />
+                <motion.div
+                  className="absolute top-1/3 right-1/3 w-40 h-40 border-2 border-accent/10 rotate-12"
+                  style={{ y: parallaxOffsetSlow * 1.2 }}
+                />
+                
+                <div className="relative z-10">
               <motion.h1
                 className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-none lowercase tracking-tight"
                 initial={{ opacity: 0 }}
@@ -312,6 +336,7 @@ const Index = () => {
                 >
                   Full Stack Developer specializing in MERN stack, React Native, and creating robust, scalable web applications.
                 </motion.p>
+                </div>
               </div>
 
               {/* Recent Works List */}
@@ -328,19 +353,24 @@ const Index = () => {
                 </motion.h2>
                 <div className="space-y-1">
                   {projects.slice(0, 5).map((project, idx) => (
-                    <motion.div
-                      key={project.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ 
-                        opacity: worksSection.isIntersecting ? 1 : 0,
-                        x: worksSection.isIntersecting ? 0 : -20
-                      }}
-                      transition={{ delay: 0.1 * idx }}
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ 
+                      opacity: worksSection.isIntersecting ? 1 : 0,
+                      x: worksSection.isIntersecting ? 0 : -20
+                    }}
+                    transition={{ delay: 0.1 * idx }}
                       onMouseEnter={() => setHoveredProject(project.id)}
                       onMouseLeave={() => setHoveredProject(null)}
-                      className="project-hover-card brutalist-border border-b py-6 group"
+                      className="project-hover-card brutalist-border border-b py-6 group relative overflow-hidden"
                     >
-                      <Link to={`/work/${project.slug}`} className="flex items-center gap-8">
+                      {/* Parallax background accent */}
+                      <motion.div
+                        className="absolute inset-0 bg-accent/5 -z-10"
+                        style={{ x: parallaxOffsetSlow * 0.1 }}
+                      />
+                      <Link to={`/work/${project.slug}`} className="flex items-center gap-8 relative z-10">
                         <span className="font-mono text-muted-foreground text-sm">{project.index}</span>
                         <span className="text-4xl md:text-5xl font-bold group-hover:text-accent transition-colors">
                           {project.title}
@@ -546,13 +576,20 @@ const Index = () => {
                     transition={{ delay: 0.05 * idx }}
                   >
                     <Link to={`/work/${project.slug}`} className="group block">
-                      <div className="aspect-video bg-muted brutalist-border overflow-hidden mb-4">
-                        <img
+                      <motion.div 
+                        className="aspect-video bg-muted brutalist-border overflow-hidden mb-4 relative"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <motion.img
                           src={project.images[0]}
                           alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="w-full h-full object-cover"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.5 }}
+                          style={{ y: idx % 2 === 0 ? parallaxOffset * 0.05 : parallaxOffsetSlow * 0.05 }}
                         />
-                      </div>
+                      </motion.div>
                       <div className="flex items-baseline justify-between">
                         <h3 className="text-3xl font-bold group-hover:text-accent transition-colors">
                           {project.title}

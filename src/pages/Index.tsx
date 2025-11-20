@@ -288,51 +288,71 @@ const Index = () => {
               transition={{ duration: 0.4 }}
               className="py-16"
             >
-              <div className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16">
-                <div>
-                  <h2 className="text-5xl font-bold mb-8">About</h2>
-                  <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                    <p className="font-semibold text-foreground">Naod Hunde</p>
-                    <p>
-                      Email: <a href="mailto:naodhunde@gmail.com" className="text-accent hover:underline transition-colors">naodhunde@gmail.com</a>
-                    </p>
-                    <p>
-                      Phone: <a href="tel:0414252751" className="text-accent hover:underline transition-colors">0414252751</a>
-                    </p>
-                    <p className="pt-4">
-                      Currently pursuing a Bachelor of Information Technology majoring in Cybersecurity at Western Sydney University (GPA: 4.0), 
-                      with a Certification in Full Stack Development from the University of Sydney.
-                    </p>
-                    
-                    <div className="pt-8">
-                      <h3 className="text-2xl font-bold mb-4 text-foreground">GitHub Activity</h3>
-                      <div className="bg-card p-6 rounded-lg border-2 border-border">
-                        <a 
-                          href="https://github.com/naodhunde" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-accent hover:underline text-lg"
-                        >
-                          View my GitHub profile →
-                        </a>
-                        <p className="text-muted-foreground mt-2">
-                          Check out my open source contributions and projects
-                        </p>
+              <div className="grid md:grid-cols-2 gap-16 brutalist-border border-b pb-16 md:divide-x md:divide-border">
+                {/* Left Column - Profile & Stats */}
+                <div className="space-y-12">
+                  <h2 className="text-5xl font-bold">About</h2>
+                  
+                  {/* Developer Specs Grid */}
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 text-sm">
+                      <span className="font-mono text-muted-foreground uppercase tracking-wider">// CONTACT</span>
+                      <div className="space-y-2">
+                        <div>
+                          <a href="mailto:naodhunde@gmail.com" className="text-foreground hover:text-accent transition-colors">
+                            naodhunde@gmail.com
+                          </a>
+                        </div>
+                        <div>
+                          <a href="tel:0414252751" className="text-foreground hover:text-accent transition-colors">
+                            0414 252 751
+                          </a>
+                        </div>
+                      </div>
+
+                      <span className="font-mono text-muted-foreground uppercase tracking-wider">// EDUCATION</span>
+                      <div>
+                        <div className="text-foreground">Bachelor of IT - Cybersecurity</div>
+                        <div className="text-muted-foreground text-xs">Western Sydney University</div>
+                      </div>
+
+                      <span className="font-mono text-muted-foreground uppercase tracking-wider">// GPA</span>
+                      <div className="text-foreground">4.0 / 4.0</div>
+
+                      <span className="font-mono text-muted-foreground uppercase tracking-wider">// CERTIFICATION</span>
+                      <div>
+                        <div className="text-foreground">Full Stack Development</div>
+                        <div className="text-muted-foreground text-xs">University of Sydney</div>
                       </div>
                     </div>
-                    <p>
-                      I specialize in building full-stack applications using the MERN stack and mobile development with React Native and Flutter. 
-                      My experience includes developing high-performance mobile applications, architecting scalable databases, and implementing 
-                      secure authentication systems that enhance user engagement and retention.
-                    </p>
-                    <p>
-                      With hands-on experience at Stomble and AML Cloud, I've contributed to projects that prioritize performance, security, 
-                      and exceptional user experiences across both web and mobile platforms.
-                    </p>
                   </div>
+
+                  {/* Bio */}
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Full Stack Developer specializing in MERN stack and React Native. I build high-performance applications 
+                    with a focus on security, scalability, and exceptional user experiences.
+                  </p>
+
+                  {/* GitHub Command Line Button */}
+                  <a 
+                    href="https://github.com/naodhunde" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block w-full bg-background border-2 border-border p-6 font-mono text-sm hover:border-accent transition-all group"
+                  >
+                    <span className="text-accent">$</span>
+                    <span className="text-foreground ml-2 group-hover:text-accent transition-colors">
+                      cat github/profile
+                    </span>
+                    <div className="text-muted-foreground mt-2 text-xs">
+                      → View contributions and open source work
+                    </div>
+                  </a>
                 </div>
-                <div>
-                  <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8">Services</h3>
+
+                {/* Right Column - Services Grid */}
+                <div className="md:pl-16">
+                  <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-8 font-mono">// SERVICES</h3>
                   <div className="grid grid-cols-2 gap-4">
                     {services.map((service, idx) => (
                       <motion.div
@@ -340,10 +360,10 @@ const Index = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 * idx }}
-                        className="brutalist-border p-6 hover:border-accent transition-colors group"
+                        className="border border-zinc-800 p-6 hover:bg-zinc-900 hover:border-accent transition-all group"
                       >
-                        <service.icon className="w-8 h-8 mb-4 text-accent" />
-                        <h4 className="font-bold mb-2 group-hover:text-accent transition-colors">
+                        <service.icon className="w-8 h-8 mb-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                        <h4 className="font-bold mb-2 text-foreground group-hover:text-accent transition-colors">
                           {service.title}
                         </h4>
                         <p className="text-sm text-muted-foreground">{service.description}</p>

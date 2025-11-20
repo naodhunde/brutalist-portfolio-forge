@@ -83,6 +83,15 @@ const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [isExploding, setIsExploding] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Loading screen
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Live clock
   useEffect(() => {
@@ -123,7 +132,60 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground" onClick={handleGlobalClick}>
+    <>
+      {/* Loading Screen */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[100] bg-background flex items-center justify-center"
+          >
+            <div className="text-center space-y-8">
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-4"
+              >
+                <h1 className="text-6xl md:text-8xl font-bold">
+                  {("NH".split("").map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.2 + index * 0.1,
+                        duration: 0.4
+                      }}
+                      className="inline-block"
+                    >
+                      {letter}
+                    </motion.span>
+                  )))}
+                </h1>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="h-1 bg-accent mx-auto"
+                />
+              </motion.div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="font-mono text-sm text-muted-foreground uppercase tracking-wider"
+              >
+                Loading Portfolio...
+              </motion.p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="min-h-screen bg-background text-foreground" onClick={handleGlobalClick}>
       {/* Click ripple effects */}
       {ripples.map((ripple) => (
         <div
@@ -491,6 +553,7 @@ const Index = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

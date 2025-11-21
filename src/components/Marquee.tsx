@@ -37,6 +37,9 @@ export const Marquee = ({ items, speed = 50 }: MarqueeProps) => {
           </span>
         ))}
       </div>
+      {/* Fade overlays */}
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-foreground to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-foreground to-transparent pointer-events-none" />
     </div>
   );
 };

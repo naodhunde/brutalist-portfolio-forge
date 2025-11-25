@@ -116,10 +116,14 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Track mouse position for project preview
+  // Track mouse position for project preview and cursor trail
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      
+      // Add to cursor trail
+      const newTrail = { x: e.clientX, y: e.clientY, id: Date.now() };
+      setCursorTrail((prev) => [...prev.slice(-8), newTrail]); // Keep last 8 positions
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
@@ -150,6 +154,32 @@ const Index = () => {
 
   return (
     <>
+      {/* Custom Cursor */}
+      <div className="fixed inset-0 pointer-events-none z-[9999]" style={{ cursor: 'none' }}>
+        {/* Cursor trail */}
+        {cursorTrail.map((pos, index) => (
+          <div
+            key={pos.id}
+            className="absolute w-2 h-2 rounded-full bg-accent transition-opacity duration-300"
+            style={{
+              left: pos.x - 4,
+              top: pos.y - 4,
+              opacity: (index + 1) / cursorTrail.length * 0.6,
+              boxShadow: `0 0 ${12 + index * 2}px hsl(var(--accent))`,
+            }}
+          />
+        ))}
+        {/* Main cursor */}
+        <div
+          className="absolute w-4 h-4 rounded-full bg-accent transition-transform duration-100"
+          style={{
+            left: mousePosition.x - 8,
+            top: mousePosition.y - 8,
+            boxShadow: '0 0 20px hsl(var(--accent)), 0 0 40px hsl(var(--accent) / 0.5)',
+          }}
+        />
+      </div>
+
       {/* Scroll Progress Bar */}
       <ScrollProgress />
 
@@ -205,7 +235,7 @@ const Index = () => {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-background text-foreground" onClick={handleGlobalClick}>
+      <div className="min-h-screen bg-background text-foreground" onClick={handleGlobalClick} style={{ cursor: 'none' }}>
       {/* Click ripple effects */}
       {ripples.map((ripple) => (
         <div

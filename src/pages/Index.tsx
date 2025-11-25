@@ -84,6 +84,7 @@ const Index = () => {
   const [time, setTime] = useState(new Date());
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorTrail, setCursorTrail] = useState<Array<{ x: number; y: number; id: number }>>([]);
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [isExploding, setIsExploding] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

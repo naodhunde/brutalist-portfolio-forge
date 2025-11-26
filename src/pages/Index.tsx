@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Code2, Sparkles, Zap, TrendingUp, Linkedin, Send, Instagram } from "lucide-react";
+import { Code2, Sparkles, Zap, TrendingUp, Linkedin, Send, Instagram, Menu, X } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Timeline, TimelineItem } from "@/components/Timeline";
 import { Marquee } from "@/components/Marquee";
@@ -11,6 +11,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FloatingActionMenu } from "@/components/FloatingActionMenu";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
@@ -90,6 +91,7 @@ const Index = () => {
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [isExploding, setIsExploding] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Intersection observers for scroll animations
   const heroSection = useIntersectionObserver({ threshold: 0.2 });
@@ -247,12 +249,14 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="font-bold tracking-tight">Naod Hunde • Full Stack Developer</div>
           
-          <div className="flex items-center gap-6 font-mono text-sm">
+          {/* Desktop clock - hidden on mobile */}
+          <div className="hidden md:flex items-center gap-6 font-mono text-sm">
             <div>{formatTime(time)}</div>
             <div className="text-muted-foreground">Located in Sydney</div>
           </div>
 
-          <nav className="flex items-center gap-6 text-sm">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6 text-sm">
             {(["home", "about", "work"] as const).map((view) => (
               <button
                 key={view}
@@ -277,8 +281,61 @@ const Index = () => {
             </a>
             <ThemeToggle />
           </nav>
+
+          {/* Mobile Navigation */}
+          <div className="flex md:hidden items-center gap-4">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-2 hover:bg-accent/10 rounded-md transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Mobile Drawer Menu */}
+      <Drawer open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <DrawerContent>
+          <DrawerHeader className="border-b">
+            <div className="flex items-center justify-between">
+              <DrawerTitle>Menu</DrawerTitle>
+              <DrawerClose asChild>
+                <button className="p-2 hover:bg-accent/10 rounded-md transition-colors">
+                  <X className="w-5 h-5" />
+                </button>
+              </DrawerClose>
+            </div>
+          </DrawerHeader>
+          <nav className="flex flex-col p-6 gap-4">
+            {(["home", "about", "work"] as const).map((view) => (
+              <button
+                key={view}
+                onClick={() => {
+                  setCurrentView(view);
+                  setMobileMenuOpen(false);
+                }}
+                className={`text-left py-4 px-6 text-2xl font-bold uppercase tracking-wider transition-colors rounded-md ${
+                  currentView === view ? "bg-accent/20 text-accent" : "hover:bg-accent/10"
+                }`}
+              >
+                {view}
+              </button>
+            ))}
+            <a 
+              href="/resume.pdf" 
+              className="text-left py-4 px-6 text-2xl font-bold bg-background text-foreground rounded-md hover:bg-background/90 transition-colors border-2 border-foreground uppercase tracking-wider"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Resume
+            </a>
+          </nav>
+        </DrawerContent>
+      </Drawer>
 
       {/* Main Content Area */}
       <main className="container mx-auto px-6 py-12">

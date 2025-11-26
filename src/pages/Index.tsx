@@ -213,7 +213,7 @@ const Index = () => {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-background text-foreground cursor-none" onClick={handleGlobalClick}>
+      <div className="min-h-screen bg-background text-foreground md:cursor-none" onClick={handleGlobalClick}>
       {/* Click ripple effects */}
       {ripples.map((ripple) => (
         <div

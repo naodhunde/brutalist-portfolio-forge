@@ -4,8 +4,19 @@ import { motion } from "framer-motion";
 export const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorTrail, setCursorTrail] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  // Detect if device is touch-only
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    };
+    checkTouchDevice();
+  }, []);
 
   useEffect(() => {
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       
@@ -16,7 +27,10 @@ export const CustomCursor = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isTouchDevice]);
+
+  // Don't render on touch devices
+  if (isTouchDevice) return null;
 
   return (
     <>

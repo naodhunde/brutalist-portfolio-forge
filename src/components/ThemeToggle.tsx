@@ -15,17 +15,29 @@ export const ThemeToggle = () => {
     const isCurrentlyDark = html.classList.contains("dark");
     const nextTheme = isCurrentlyDark ? "light" : "dark";
 
-    // Update next-themes state (if it works in this environment)
-    setTheme(nextTheme);
+    // Log for debugging across devices
+    console.log("[ThemeToggle] Toggling theme", { isCurrentlyDark, nextTheme });
 
-    // Also force class on <html> so it always works on mobile
+    // Optionally update next-themes state, but main source of truth is the html class
+    try {
+      setTheme(nextTheme);
+    } catch (error) {
+      console.warn("[ThemeToggle] setTheme failed, falling back to manual toggle only", error);
+    }
+
+    // Force class on <html> so it always works (desktop + mobile)
     if (nextTheme === "dark") {
       html.classList.add("dark");
     } else {
       html.classList.remove("dark");
     }
 
-    window.localStorage.setItem("theme", nextTheme);
+    // Persist preference
+    try {
+      window.localStorage.setItem("theme", nextTheme);
+    } catch (error) {
+      console.warn("[ThemeToggle] Failed to persist theme in localStorage", error);
+    }
   };
 
   if (!mounted) {

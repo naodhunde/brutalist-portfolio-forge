@@ -10,15 +10,33 @@ export const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
+  const handleToggle = () => {
+    const html = document.documentElement;
+    const isCurrentlyDark = html.classList.contains("dark");
+    const nextTheme = isCurrentlyDark ? "light" : "dark";
+
+    // Update next-themes state (if it works in this environment)
+    setTheme(nextTheme);
+
+    // Also force class on <html> so it always works on mobile
+    if (nextTheme === "dark") {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+
+    window.localStorage.setItem("theme", nextTheme);
+  };
+
   if (!mounted) {
     return (
       <div className="w-10 h-10 rounded-md border-2 border-foreground" />
     );
   }
-
+ 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={handleToggle}
       className="relative w-10 h-10 rounded-md border-2 border-foreground hover:bg-accent/10 transition-all duration-300 flex items-center justify-center group"
       aria-label="Toggle theme"
     >

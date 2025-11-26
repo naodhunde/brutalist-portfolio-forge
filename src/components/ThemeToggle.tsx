@@ -1,38 +1,44 @@
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
+    // Initialize from localStorage or system preference
+    try {
+      const stored = window.localStorage.getItem("theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = stored ?? (prefersDark ? "dark" : "light");
+      const html = document.documentElement;
+
+      if (initialTheme === "dark") {
+        html.classList.add("dark");
+        setIsDark(true);
+      } else {
+        html.classList.remove("dark");
+        setIsDark(false);
+      }
+    } catch (error) {
+      console.warn("[ThemeToggle] Failed to read initial theme", error);
+    }
   }, []);
 
   const handleToggle = () => {
     const html = document.documentElement;
-    const isCurrentlyDark = html.classList.contains("dark");
-    const nextTheme = isCurrentlyDark ? "light" : "dark";
+    const nextTheme = isDark ? "light" : "dark";
 
-    // Log for debugging across devices
-    console.log("[ThemeToggle] Toggling theme", { isCurrentlyDark, nextTheme });
-
-    // Optionally update next-themes state, but main source of truth is the html class
-    try {
-      setTheme(nextTheme);
-    } catch (error) {
-      console.warn("[ThemeToggle] setTheme failed, falling back to manual toggle only", error);
-    }
-
-    // Force class on <html> so it always works (desktop + mobile)
     if (nextTheme === "dark") {
       html.classList.add("dark");
     } else {
       html.classList.remove("dark");
     }
 
-    // Persist preference
+    setIsDark(!isDark);
+
     try {
       window.localStorage.setItem("theme", nextTheme);
     } catch (error) {

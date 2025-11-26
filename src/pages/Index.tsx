@@ -11,7 +11,6 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FloatingActionMenu } from "@/components/FloatingActionMenu";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
 
 const services = [
   { icon: Code2, title: "Full Stack Development", description: "MERN Stack, React Native" },
@@ -286,7 +285,10 @@ const Index = () => {
           <div className="flex md:hidden items-center gap-4">
             <ThemeToggle />
             <button
-              onClick={() => setMobileMenuOpen(true)}
+              onClick={() => {
+                console.log("Opening mobile menu");
+                setMobileMenuOpen(true);
+              }}
               className="p-2 hover:bg-accent/10 rounded-md transition-colors"
               aria-label="Open menu"
             >
@@ -296,46 +298,54 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
-      <Drawer open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <DrawerContent>
-          <DrawerHeader className="border-b">
-            <div className="flex items-center justify-between">
-              <DrawerTitle>Menu</DrawerTitle>
-              <DrawerClose asChild>
-                <button className="p-2 hover:bg-accent/10 rounded-md transition-colors">
-                  <X className="w-5 h-5" />
-                </button>
-              </DrawerClose>
-            </div>
-          </DrawerHeader>
-          <nav className="flex flex-col p-6 gap-4">
-            {(["home", "about", "work"] as const).map((view) => (
+      {/* Mobile Slide-in Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.aside
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-y-0 right-0 z-50 w-4/5 max-w-xs bg-background border-l brutalist-border flex flex-col md:hidden"
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b">
+              <span className="font-semibold tracking-tight">Menu</span>
               <button
-                key={view}
-                onClick={() => {
-                  setCurrentView(view);
-                  setMobileMenuOpen(false);
-                }}
-                className={`text-left py-4 px-6 text-2xl font-bold uppercase tracking-wider transition-colors rounded-md ${
-                  currentView === view ? "bg-accent/20 text-accent" : "hover:bg-accent/10"
-                }`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 hover:bg-accent/10 rounded-md transition-colors"
+                aria-label="Close menu"
               >
-                {view}
+                <X className="w-5 h-5" />
               </button>
-            ))}
-            <a 
-              href="/resume.pdf" 
-              className="text-left py-4 px-6 text-2xl font-bold bg-background text-foreground rounded-md hover:bg-background/90 transition-colors border-2 border-foreground uppercase tracking-wider"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Resume
-            </a>
-          </nav>
-        </DrawerContent>
-      </Drawer>
+            </div>
+            <nav className="flex flex-col p-6 gap-4 flex-1">
+              {(["home", "about", "work"] as const).map((view) => (
+                <button
+                  key={view}
+                  onClick={() => {
+                    setCurrentView(view);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`text-left py-3 px-4 text-xl font-bold uppercase tracking-wider transition-colors rounded-md ${
+                    currentView === view ? "bg-accent/20 text-accent" : "hover:bg-accent/10"
+                  }`}
+                >
+                  {view}
+                </button>
+              ))}
+              <a 
+                href="/resume.pdf" 
+                className="mt-2 text-left py-3 px-4 text-xl font-bold bg-background text-foreground rounded-md hover:bg-background/90 transition-colors border-2 border-foreground uppercase tracking-wider"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Resume
+              </a>
+            </nav>
+          </motion.aside>
+        )}
+      </AnimatePresence>
 
       {/* Main Content Area */}
       <main className="container mx-auto px-6 py-12">
